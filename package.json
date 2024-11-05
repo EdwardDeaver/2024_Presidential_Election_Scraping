@@ -1,0 +1,16 @@
+{
+  "name": "2024_presidential_election_scraping",
+  "version": "1.0.0",
+  "description": "NY Times to data out",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "websocket": "^1.0.35",
+    "websockets": "^0.2.0"
+  }
+}
