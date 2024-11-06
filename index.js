@@ -70,7 +70,7 @@ async function main(connection){
         console.log(trumpElectoral)
         console.log(stringValueForBiden)
         console.log(stringValueForTrump)
-        let finalString = "Trump  " + stringValueForTrump + "    " + "Harris  " + stringValueForBiden + "    "
+        let finalString = "Trump  " + stringValueForTrump + "    " + "Harris " + stringValueForBiden + "    "
         console.log(finalString)
 
 
