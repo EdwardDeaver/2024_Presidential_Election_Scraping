@@ -4,7 +4,7 @@ import pkg from 'websocket';
 const {client} = pkg;
 const myTransform = new textTransforms();
 
-let NYTIMES_URL = "https://static01.nyt.com/elections-assets/2020/data/api/2020-11-03/votes-remaining-page/national/president.json"
+let NYTIMES_URL = "https://static01.nyt.com/elections-assets/pages/data/2024-11-05/results-president.json"
 
 let settings = { method: "Get" };
 
@@ -21,25 +21,56 @@ async function main(connection){
     .then(res => res.json())
     .then((json) => {
         let trumpElectoral = 0
-        let bidenElectoral = 0 
-        for (let i in json["data"]["races"]){
+        let harrisElectoral = 0 
+        for (let i in json["races"]){
+            if(json["races"][i]["type"]=="General"){
+                console.log(json["races"][i]["nyt_id"])
+            for (let z in json["races"][i]["outcome"]){  
+                try{
+                    console.log("won");
+                    console.log(json["races"][i]["outcome"][z])
+                    if(json["races"][i]["outcome"][z]=='harris-k'){
+                        console.log(json["races"][i]["outcome"]["electoral_votes"])
+                        harrisElectoral = harrisElectoral + json["races"][i]["outcome"]["electoral_votes"]
+                        continue
+                    }
+                    if(json["races"][i]["outcome"][z]=='trump-d'){
+                        console.log(json["races"][i]["outcome"]["electoral_votes"])
+                        trumpElectoral = trumpElectoral + json["races"][i]["outcome"]["electoral_votes"]
+                        continue
+                    }
+                    console.log(json["races"][i]["outcome"][z]["won"]);
+                    console.log(json["races"][i]["outcome"][z]["electoral_votes"])
+                }
+            
+            catch(error ){
+                console.log("exception");
+            }
+                
+                console.log(json["races"][i]["outcome"][z]);
+                
+            }
+        }
+/*
             for (let z in json["data"]["races"][i]["candidates"]){
+                console.log( json["data"]["races"][i]["candidates"][z])
                 if (json["data"]["races"][i]["candidates"][z]["last_name"] == "Trump")
                     trumpElectoral = trumpElectoral + json["data"]["races"][i]["candidates"][z]["electoral_votes"]
-                if (json["data"]["races"][i]["candidates"][z]["last_name"] == "Biden")
-                    bidenElectoral = bidenElectoral + json["data"]["races"][i]["candidates"][z]["electoral_votes"]
+                if (json["data"]["races"][i]["candidates"][z]["last_name"] == "Harris")
+                    harrisElectoral = harrisElectoral + json["data"]["races"][i]["candidates"][z]["electoral_votes"]
                 else
                     continue
             }
+                    */
         }
-        console.log(bidenElectoral.toString())
-        console.log(bidenElectoral.toString().length)
+        console.log(harrisElectoral.toString())
+        console.log(harrisElectoral.toString().length)
         let stringValueForTrump = "0".repeat(3 - trumpElectoral.toString().length) +  trumpElectoral.toString()
-        let stringValueForBiden =  "0".repeat(3 - bidenElectoral.toString().length) +  bidenElectoral.toString()
+        let stringValueForBiden =  "0".repeat(3 - harrisElectoral.toString().length) +  harrisElectoral.toString()
         console.log(trumpElectoral)
         console.log(stringValueForBiden)
         console.log(stringValueForTrump)
-        let finalString = "Trump  " + stringValueForTrump + "    " + "Biden  " + stringValueForBiden + "    "
+        let finalString = "Trump  " + stringValueForTrump + "    " + "Harris  " + stringValueForBiden + "    "
         console.log(finalString)
 
 
@@ -72,7 +103,7 @@ function sleep(ms) {
 
 
 var clientWeb = new client();
-await sleep(5000*1);
+//await sleep(10000*1);
 
 clientWeb.on('connectFailed', function(error) {
     console.log('Connect Error: ' + error.toString());
