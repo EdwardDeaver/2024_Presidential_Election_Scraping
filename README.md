@@ -5,7 +5,7 @@ https://www.nytimes.com/interactive/2024/11/05/us/elections/results-president.ht
 
 [![Watch the video](https://repository-images.githubusercontent.com/882895679/e547371e-ab09-45be-a7a9-04646985e6f1)](https://vimeo.com/1027074047)
 
-Video Of It: https://player.vimeo.com/video/1027038934?h=c5644c94a6
+Video Of It: https://vimeo.com/1027074047
 
 I learned about the NY Times data from a person at Syracuse's Open Data Day. 
 
